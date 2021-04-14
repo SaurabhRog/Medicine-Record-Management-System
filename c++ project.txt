@@ -1,0 +1,145 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+void patient_print(string dis1,string cure1,string cure2,unordered_map<string,vector<string>>data)
+{
+	cout<<"Your Overall Details :\n";
+	int count=1;
+	for(auto x:data)
+	{
+		for(auto i:x.second)
+		{
+		    if(count==1) cout<<"Name: ";
+		    if(count==2) cout<<"Gender: ";
+		    if(count==3) cout<<"Address: ";
+		    
+			cout<<i<<"\n";
+			count++;
+		}
+    break;
+	}
+	cout<<"And the disese you have write now is:"<<" "<<dis1<<"\n";
+	cout<<"So, the cure of your disease is:\n";
+	cout<<"(1) "<<cure1<<"\n";
+	cout<<"(2) "<<cure2<<"\n";
+	
+	cout<<"THANKYOU FOR VISITING...\n";
+}
+void patient_medical(string dis,vector<string>vec,unordered_map<string,vector<string>>mp,unordered_map<string,vector<string>>data)
+{
+	string res1,res2;
+	int flag=1;
+	int n = vec.size();
+	for(int i=0;i<n;i++)
+	{
+		if(vec[i]==dis)
+		{
+			cout<<"The medicine you have to take per day\n";
+			for(auto x:mp[dis])
+			{
+				if(flag)
+        {
+          res1 = x;
+          flag=0;
+        }
+				else
+        { 
+					res2 = x;
+        }
+        cout<<x<<"\n";
+			}
+		}
+	}
+  patient_print(dis,res1,res2,data);
+}
+void patient_record(unordered_map<string,vector<string>>&data,vector<string>vec,unordered_map<string,vector<string>>mp)
+{
+	//data = person record like name ,address,Gender
+	//vec = collections of diseases
+	// mp = diseases -> cure
+	string dis;
+	cout<<"Enter the desease from which you are suffering from\n";
+	cin>>dis;
+	
+	if(find(vec.begin(),vec.end(),dis)!=vec.end())
+	{
+		cout<<"Yes, you are at the right place for the cure !\n";
+		patient_medical(dis,vec,mp,data);
+	}
+	else
+	{
+		cout<<"Sorry our Hospital is not meant for these type of deseases\n";
+	}
+}
+void medicine_record(vector<string>vec,unordered_map<string,vector<string>>&mp)
+{
+	
+	for(int i=0;i<vec.size();i++)
+	{
+		mp[vec[i]].push_back("glipizide(Glucotrol)");
+		mp[vec[i]].push_back("glimepiride(Amaryl)");
+	}
+}
+void company(unordered_map<string,vector<string>>&data)
+{
+	vector<string>vec;
+	cout<<"Gandhi Hospital is for cure of 10 diseases\n";
+	vec.push_back("cold");
+	vec.push_back("sugar");
+	vec.push_back("liver");
+	vec.push_back("heart");
+	vec.push_back("lungs");
+	vec.push_back("dental");
+	vec.push_back("eyes");
+	vec.push_back("fungal infection");
+	vec.push_back("fiver");
+	vec.push_back("mental health");
+	unordered_map<string,vector<string>>mp;
+	medicine_record(vec,mp);
+	
+	patient_record(data,vec,mp);
+	
+}
+void login(unordered_map<string,vector<string>>&data)
+{
+	cout<<"Please Create your account for your data to be secured\n";
+	
+		string name,address="";
+		string sex;
+		cout<<"Enter Name:\n";
+		getline(cin,name);
+		cout<<"Your current Address\n";
+		getline(cin,address);
+		cout<<"Your Gender Male or Female\n";
+		cin>>sex;
+        
+        data[name].push_back(name);
+		data[name].push_back(sex);
+		data[name].push_back(address);
+	
+	cout<<"Your Account has been created\n";
+	
+	cout<<"Your Details :\n";
+	int count=1;
+	for(auto x:data)
+	{
+		for(auto i:x.second)
+		{
+		    if(count==1) cout<<"Name: ";
+		    if(count==2) cout<<"Gender: ";
+		    if(count==3) cout<<"Address: ";
+		    
+			cout<<i<<"\n";
+			count++;
+		}
+	}
+}
+int main()
+{
+	cout<<"Excellent health care... ...Gandhi Hospital\n";
+	
+	unordered_map<string,vector<string>>data;
+	login(data);
+	
+	company(data);
+}
